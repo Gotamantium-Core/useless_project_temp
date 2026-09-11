@@ -4,9 +4,11 @@ import type {
 
 import ExcuseGenerator from "../pages/ExcuseGenerator";
 import TyperChecker from "../pages/TyperChecker";
+import ProcrastinationOptimizer from "../pages/ProcrastinationOptimizer";
 import {
     ExcuseIcon,
     KeyboardIcon,
+    ClockIcon,
 } from "../components/ToolIcons";
 
 export interface UselessTool {
@@ -33,5 +35,13 @@ export const tools: UselessTool[] = [
             "Judges your typing and whatever dark secrets it reveals about you as a person.",
         icon: KeyboardIcon,
         component: TyperChecker,
+    },
+    {
+        id: "procrastination-optimizer",
+        name: "The Procrastination Optimizer",
+        tagline:
+            "Converts doomed goals into beautifully choreographed evenings of doing anything else.",
+        icon: ClockIcon,
+        component: ProcrastinationOptimizer,
     },
 ];

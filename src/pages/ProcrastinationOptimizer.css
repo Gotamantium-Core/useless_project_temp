@@ -1,0 +1,590 @@
+.proc-page {
+    width: 100%;
+    max-width: 760px;
+}
+
+/* =========================================
+   Header
+   ========================================= */
+
+.proc-header {
+    margin-bottom: var(--space-8);
+}
+
+.proc-eyebrow {
+    display: inline-flex;
+    align-items: center;
+
+    margin-bottom: var(--space-3);
+
+    padding: 6px 10px;
+
+    border: 1px solid var(--color-border);
+    border-radius: 999px;
+
+    background: var(--color-surface);
+
+    color: var(--color-text-secondary);
+
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.proc-title {
+    margin: 0;
+
+    color: var(--color-text);
+
+    font-size: clamp(32px, 5vw, 48px);
+    line-height: 1.05;
+    letter-spacing: -0.04em;
+}
+
+.proc-subtitle {
+    margin: var(--space-4) 0 0;
+
+    color: var(--color-text-secondary);
+
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+/* =========================================
+   Main Card
+   ========================================= */
+
+.proc-card {
+    padding: var(--space-8);
+
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+
+    background: var(--color-surface);
+
+    box-shadow: var(--shadow-md);
+
+    transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+/* =========================================
+   Form
+   ========================================= */
+
+.proc-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+}
+
+.form-label {
+    color: var(--color-text);
+
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.form-hint {
+    margin: 0;
+
+    color: var(--color-text-muted);
+
+    font-size: 12px;
+}
+
+/* =========================================
+   Task Input
+   ========================================= */
+
+.proc-input {
+    width: 100%;
+
+    padding: 12px 14px;
+
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-md);
+
+    outline: none;
+
+    background: var(--color-surface);
+    color: var(--color-text);
+
+    transition:
+        border-color 0.15s ease,
+        box-shadow 0.15s ease,
+        background-color 0.2s ease;
+}
+
+.proc-input:hover {
+    border-color: var(--color-accent);
+}
+
+.proc-input:focus {
+    border-color: var(--color-accent);
+
+    box-shadow:
+        0 0 0 3px var(--color-accent-soft);
+}
+
+.proc-input::placeholder {
+    color: var(--color-text-muted);
+}
+
+/* =========================================
+   Procrastination Level
+   ========================================= */
+
+.proc-level-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-2);
+}
+
+.level-option {
+    position: relative;
+}
+
+.level-option input {
+    position: absolute;
+
+    width: 1px;
+    height: 1px;
+
+    opacity: 0;
+}
+
+.level-button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+
+    width: 100%;
+
+    padding: 12px 8px;
+
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+
+    background: var(--color-surface);
+    color: var(--color-text-secondary);
+
+    transition:
+        background-color 0.15s ease,
+        border-color 0.15s ease,
+        color 0.15s ease,
+        transform 0.15s ease;
+}
+
+.level-button:hover {
+    background: var(--color-surface-hover);
+    border-color: var(--color-border-strong);
+
+    transform: translateY(-1px);
+}
+
+.level-option input:checked + .level-button {
+    border-color: var(--color-accent);
+    background: var(--color-accent-soft);
+    color: var(--color-accent-text);
+}
+
+.level-option input:focus-visible + .level-button {
+    border-color: var(--color-accent);
+
+    box-shadow:
+        0 0 0 3px var(--color-accent-soft);
+}
+
+.level-name {
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.level-description {
+    color: var(--color-text-muted);
+
+    font-size: 11px;
+    text-align: center;
+}
+
+.level-option input:checked + .level-button .level-description {
+    color: var(--color-accent-text);
+}
+
+/* =========================================
+   Generate Button
+   ========================================= */
+
+.generate-button {
+    width: 100%;
+
+    padding: 14px 20px;
+
+    border: none;
+    border-radius: var(--radius-md);
+
+    background: var(--color-accent);
+    color: white;
+
+    font-size: 14px;
+    font-weight: 700;
+
+    transition:
+        background-color 0.15s ease,
+        transform 0.15s ease,
+        box-shadow 0.15s ease,
+        opacity 0.15s ease;
+}
+
+.generate-button:hover:not(:disabled) {
+    background: var(--color-accent-hover);
+
+    transform: translateY(-1px);
+
+    box-shadow: var(--shadow-md);
+}
+
+.generate-button:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+.generate-button:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+}
+
+.generate-button:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+/* =========================================
+   Result
+   ========================================= */
+
+.proc-result-wrap {
+    margin-top: var(--space-6);
+}
+
+.proc-result {
+    padding: var(--space-6);
+
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+
+    background: var(--color-surface-muted);
+
+    animation: proc-in 0.25s ease;
+}
+
+@keyframes proc-in {
+    from {
+        opacity: 0;
+        transform: translateY(4px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.proc-result-empty {
+    border-style: dashed;
+    background: transparent;
+}
+
+.result-label {
+    margin: 0 0 var(--space-3);
+
+    color: var(--color-text-muted);
+
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.result-placeholder {
+    margin: 0;
+
+    color: var(--color-text-muted);
+
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+/* =========================================
+   Timeline
+   ========================================= */
+
+.proc-timeline {
+    display: flex;
+    flex-direction: column;
+
+    margin: var(--space-4) 0 0;
+    padding: 0;
+
+    list-style: none;
+}
+
+.proc-entry {
+    display: grid;
+    grid-template-columns: 88px 22px 1fr;
+    align-items: start;
+
+    opacity: 0;
+
+    animation: proc-entry-in 0.3s ease forwards;
+}
+
+@keyframes proc-entry-in {
+    from {
+        opacity: 0;
+        transform: translateY(4px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.proc-entry-time {
+    padding-top: 4px;
+
+    color: var(--color-text-muted);
+
+    font-family:
+        ui-monospace,
+        SFMono-Regular,
+        Menlo,
+        Consolas,
+        monospace;
+    font-size: 13px;
+}
+
+.proc-entry-line {
+    position: relative;
+    align-self: stretch;
+
+    margin-left: 6px;
+}
+
+.proc-entry-line::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 2px;
+    transform: translateX(-50%);
+
+    background: var(--color-border);
+}
+
+.proc-entry-line::after {
+    content: "";
+    position: absolute;
+    top: 7px;
+    left: 50%;
+    transform: translateX(-50%);
+
+    width: 11px;
+    height: 11px;
+
+    border-radius: 999px;
+
+    background: var(--color-text-muted);
+    border: 2px solid var(--color-surface);
+}
+
+.proc-entry:last-child .proc-entry-line::before {
+    display: none;
+}
+
+.proc-entry-study .proc-entry-line::after {
+    background: var(--color-accent);
+}
+
+.proc-entry-giveup .proc-entry-line::after {
+    background: var(--color-danger);
+}
+
+.proc-entry-label {
+    color: var(--color-text);
+
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.proc-entry-study .proc-entry-label {
+    color: var(--color-accent-text);
+    font-weight: 600;
+}
+
+.proc-entry-giveup .proc-entry-label {
+    color: var(--color-danger);
+    font-weight: 700;
+}
+
+/* =========================================
+   Metrics
+   ========================================= */
+
+.proc-metrics {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: var(--space-3);
+
+    margin-top: var(--space-5);
+}
+
+.proc-metric {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+
+    padding: var(--space-3);
+
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+
+    background: var(--color-surface);
+}
+
+.proc-metric-label {
+    color: var(--color-text-muted);
+
+    font-size: 11px;
+}
+
+.proc-metric-value {
+    color: var(--color-text);
+
+    font-size: 18px;
+    font-weight: 700;
+}
+
+/* =========================================
+   Punchline
+   ========================================= */
+
+.proc-punchline {
+    margin-top: var(--space-5);
+
+    padding: var(--space-4) var(--space-5);
+
+    border: 1px solid var(--color-danger);
+    border-radius: var(--radius-md);
+}
+
+.punchline-text {
+    margin: 0;
+
+    color: var(--color-danger);
+
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+.punchline-text strong {
+    font-weight: 800;
+}
+
+.punchline-sub {
+    margin: var(--space-2) 0 0;
+
+    color: var(--color-text-muted);
+
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+/* =========================================
+   Again Button
+   ========================================= */
+
+.proc-again-button {
+    width: 100%;
+
+    margin-top: var(--space-5);
+
+    padding: 12px 18px;
+
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-md);
+
+    background: var(--color-surface);
+    color: var(--color-text-secondary);
+
+    font-size: 14px;
+    font-weight: 600;
+
+    transition:
+        background-color 0.15s ease,
+        color 0.15s ease;
+}
+
+.proc-again-button:hover {
+    background: var(--color-surface-hover);
+    color: var(--color-text);
+}
+
+.proc-again-button:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+}
+
+/* =========================================
+   Stats
+   ========================================= */
+
+.proc-stats {
+    display: flex;
+    justify-content: space-between;
+
+    margin-top: var(--space-5);
+
+    color: var(--color-text-muted);
+
+    font-size: 12px;
+}
+
+/* =========================================
+   Responsive
+   ========================================= */
+
+@media (max-width: 600px) {
+    .proc-card {
+        padding: var(--space-5);
+    }
+
+    .proc-level-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .proc-metrics {
+        grid-template-columns: 1fr;
+    }
+
+    .proc-entry {
+        grid-template-columns: 70px 18px 1fr;
+    }
+
+    .proc-entry-line {
+        margin-left: 4px;
+    }
+}

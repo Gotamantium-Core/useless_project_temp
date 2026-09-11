@@ -39,7 +39,29 @@ function KeyboardIcon() {
     );
 }
 
+function ClockIcon() {
+    return (
+        <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden="true"
+        >
+            <circle cx="12" cy="12" r="9" />
+            <path d="M12 7v5l3.5 2" />
+            <path d="M12 4.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3z" />
+            <path d="M17.5 3.8l1.2-1.2" strokeDasharray="0.5 1.6" />
+            <path d="M21 9.5l-1.6 0.1" strokeDasharray="0.5 1.6" />
+            <path d="M3 9.5l1.6 0.1" strokeDasharray="0.5 1.6" />
+        </svg>
+    );
+}
+
 export {
     ExcuseIcon,
     KeyboardIcon,
+    ClockIcon,
 };
