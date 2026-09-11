@@ -8,7 +8,12 @@ import type {
     ProcKind,
     ProcLevel,
     ProcLevelId,
+    ProcPoolId,
 } from "../data/procrastination";
+
+import { parseTask } from "./taskParser";
+
+import type { TaskContext } from "./taskParser";
 
 export interface ProcEntry {
     minute: number;
@@ -28,16 +33,13 @@ export interface ProcSchedule {
     entries: ProcEntry[];
     stats: ProcStats;
     totalMinutes: number;
+    categoryName: string;
+    punchline: string;
 }
 
 const START_MINUTES = 20 * 60;
 
-const GIVE_UP_LABELS = [
-    "Give up",
-    "Surrender",
-    "Accept this is a lifestyle, not an evening",
-    "Declare the exam a social construct and rest",
-];
+const CONTEXTUAL_BIAS = 0.55;
 
 function randInt(min: number, max: number): number {
     return (
@@ -66,12 +68,26 @@ function formatTime(minuteOfDay: number): string {
     return `${hour}:${String(minutes).padStart(2, "0")} ${period}`;
 }
 
-function truncate(text: string, max: number): string {
-    if (text.length <= max) {
-        return text;
+function formatRegretLabel(minutes: number): string {
+    const rounded = Math.round(minutes);
+
+    return rounded === 1
+        ? "1 minute"
+        : `${rounded} minutes`;
+}
+
+function fillPlaceholders(
+    text: string,
+    shortTask: string,
+    timeLabel?: string
+): string {
+    let filled = text.replaceAll("{task}", shortTask);
+
+    if (timeLabel !== undefined) {
+        filled = filled.replaceAll("{time}", timeLabel);
     }
 
-    return `${text.slice(0, max - 1).trimEnd()}…`;
+    return filled;
 }
 
 function pickPool(
@@ -84,7 +100,7 @@ function pickPool(
     return pools[index];
 }
 
-function pickActivity(poolId: ProcLevel["waves"][number][number]): ProcActivity {
+function pickActivity(poolId: ProcPoolId): ProcActivity {
     const options = procActivities.filter(
         (activity) => activity.pool === poolId
     );
@@ -92,10 +108,41 @@ function pickActivity(poolId: ProcLevel["waves"][number][number]): ProcActivity 
     return pick(options);
 }
 
+function pickDistraction(
+    poolId: ProcPoolId,
+    context: TaskContext
+): ProcActivity {
+    const contextual =
+        context.templates.distractions.filter(
+            (activity) => activity.pool === poolId
+        );
+
+    let activity: ProcActivity;
+
+    if (
+        contextual.length > 0 &&
+        Math.random() < CONTEXTUAL_BIAS
+    ) {
+        activity = pick(contextual);
+    } else {
+        activity = pickActivity(poolId);
+    }
+
+    return {
+        ...activity,
+        name: fillPlaceholders(
+            activity.name,
+            context.shortTask
+        ),
+    };
+}
+
 export function generateSchedule(
     task: string,
     levelId: ProcLevelId
 ): ProcSchedule {
+    const context = parseTask(task);
+
     const level =
         procLevels.find((candidate) => candidate.id === levelId) ??
         procLevels[0];
@@ -106,7 +153,7 @@ export function generateSchedule(
     let unnecessaryActivities = 0;
     let lastDistraction = "";
 
-    const shortTask = truncate(task.trim(), 52);
+    const shortTask = context.shortTask;
 
     function push(
         kind: ProcKind,
@@ -125,7 +172,10 @@ export function generateSchedule(
 
     push(
         "study",
-        `Study — ${shortTask}`,
+        fillPlaceholders(
+            pick(context.templates.studySteps),
+            shortTask
+        ),
         randInt(2, 5)
     );
 
@@ -137,10 +187,10 @@ export function generateSchedule(
 
         for (let i = 0; i < count; i += 1) {
             const poolId = pickPool(wave);
-            let activity = pickActivity(poolId);
+            let activity = pickDistraction(poolId, context);
 
             if (activity.name === lastDistraction) {
-                const retry = pickActivity(poolId);
+                const retry = pickDistraction(poolId, context);
 
                 if (retry.name !== activity.name) {
                     activity = retry;
@@ -162,12 +212,18 @@ export function generateSchedule(
 
         push(
             "study",
-            `Study — ${shortTask}`,
+            fillPlaceholders(
+                pick(context.templates.studySteps),
+                shortTask
+            ),
             randInt(1, 3)
         );
     });
 
-    const giveUpLabel = pick(GIVE_UP_LABELS);
+    const giveUpLabel = fillPlaceholders(
+        pick(context.templates.giveUpLabels),
+        shortTask
+    );
 
     entries[entries.length - 1] = {
         ...entries[entries.length - 1],
@@ -183,17 +239,27 @@ export function generateSchedule(
 
     const totalMinutes = minute;
 
+    const regretMinutesAgo = Math.max(
+        0,
+        totalMinutes - productivityAvoidedMinutes
+    );
+
+    const punchline = fillPlaceholders(
+        pick(context.templates.punchlines),
+        shortTask,
+        formatRegretLabel(regretMinutesAgo)
+    );
+
     return {
         entries,
         totalMinutes,
+        categoryName: context.templates.name,
+        punchline,
         stats: {
             procrastinatedMinutes,
             productivityAvoidedMinutes,
             unnecessaryActivities,
-            regretMinutesAgo: Math.max(
-                0,
-                totalMinutes - productivityAvoidedMinutes
-            ),
+            regretMinutesAgo,
         },
     };
 }

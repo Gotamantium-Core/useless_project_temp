@@ -27,15 +27,7 @@ function formatDuration(minutes: number): string {
         : `${hours} hr ${rest} min`;
 }
 
-function formatRegret(minutes: number): string {
-    const rounded = Math.round(minutes);
 
-    if (rounded === 1) {
-        return "1 minute";
-    }
-
-    return `${rounded} minutes`;
-}
 
 function ProcrastinationOptimizer() {
     const [task, setTask] = useState<string>("");
@@ -205,6 +197,11 @@ function ProcrastinationOptimizer() {
                                 starting 8:00 PM
                             </p>
 
+                            <div className="proc-category-badge">
+                                Detected:{" "}
+                                {schedule.categoryName}
+                            </div>
+
                             <ol className="proc-timeline">
                                 {schedule.entries.map(
                                     (entry, index) => (
@@ -251,14 +248,7 @@ function ProcrastinationOptimizer() {
 
                             <div className="proc-punchline">
                                 <p className="punchline-text">
-                                    You could have finished
-                                    this{" "}
-                                    <strong>
-                                        {formatRegret(
-                                            schedule.stats.regretMinutesAgo
-                                        )}
-                                    </strong>{" "}
-                                    ago.
+                                    {schedule.punchline}
                                 </p>
 
                                 <p className="punchline-sub">
