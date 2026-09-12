@@ -23,11 +23,27 @@ const CREEP_MAX = 55;
 const COWER_ON = 0.45;
 const COWER_OFF = 0.3;
 
+const BUTTON_FLEE_RADIUS = 150;
+const BUTTON_FLEE_MAX = 90;
+
+const FLEE_SPRING_K = 180;
+const FLEE_DAMPING = 34;
+
 interface ShyRect {
     l: number;
     t: number;
     r: number;
     b: number;
+}
+
+interface ShyTarget {
+    el: HTMLElement;
+    rect: ShyRect;
+    base: ShyRect;
+    ox: number;
+    oy: number;
+    vx: number;
+    vy: number;
 }
 
 interface NearestInfo {
@@ -71,7 +87,7 @@ function nearestPoint(
 }
 
 function nearestInfo(
-    rects: ShyRect[],
+    targets: ShyTarget[],
     x: number,
     y: number
 ): NearestInfo {
@@ -80,8 +96,8 @@ function nearestInfo(
     let bx = x;
     let by = y;
 
-    for (let i = 0; i < rects.length; i += 1) {
-        const n = nearestPoint(rects[i], x, y);
+    for (let i = 0; i < targets.length; i += 1) {
+        const n = nearestPoint(targets[i].rect, x, y);
         const dx = x - n.x;
         const dy = y - n.y;
         const d2 = dx * dx + dy * dy;
@@ -99,23 +115,86 @@ function nearestInfo(
         : { idx: bestIdx, nx: bx, ny: by, d: Math.sqrt(bestD2) };
 }
 
-function measureShyRects(root: HTMLElement): ShyRect[] {
-    const rects: ShyRect[] = [];
+function measureShyTargets(root: HTMLElement): ShyTarget[] {
+    const targets: ShyTarget[] = [];
 
     root.querySelectorAll<HTMLElement>("[data-shy]").forEach(
         (el) => {
+            el.style.transform = "";
+
             const r = el.getBoundingClientRect();
 
-            rects.push({
+            const base: ShyRect = {
                 l: r.left,
                 t: r.top,
                 r: r.right,
                 b: r.bottom,
+            };
+
+            targets.push({
+                el,
+                rect: { ...base },
+                base,
+                ox: 0,
+                oy: 0,
+                vx: 0,
+                vy: 0,
             });
         }
     );
 
-    return rects;
+    return targets;
+}
+
+function updateFlee(
+    targets: ShyTarget[],
+    cursor: { x: number; y: number },
+    dt: number
+) {
+    for (let i = 0; i < targets.length; i += 1) {
+        const target = targets[i];
+        const rect = target.rect;
+
+        const cx = (rect.l + rect.r) / 2;
+        const cy = (rect.t + rect.b) / 2;
+
+        const dx = cx - cursor.x;
+        const dy = cy - cursor.y;
+        const d = Math.hypot(dx, dy);
+
+        let desiredX = 0;
+        let desiredY = 0;
+
+        if (d < BUTTON_FLEE_RADIUS && d > 0.001) {
+            const strength =
+                (1 - d / BUTTON_FLEE_RADIUS) *
+                BUTTON_FLEE_MAX;
+
+            desiredX = (dx / d) * strength;
+            desiredY = (dy / d) * strength;
+        }
+
+        const ax =
+            (desiredX - target.ox) * FLEE_SPRING_K -
+            target.vx * FLEE_DAMPING;
+        const ay =
+            (desiredY - target.oy) * FLEE_SPRING_K -
+            target.vy * FLEE_DAMPING;
+
+        target.vx += ax * dt;
+        target.vy += ay * dt;
+
+        target.ox += target.vx * dt;
+        target.oy += target.vy * dt;
+
+        target.rect.l = target.base.l + target.ox;
+        target.rect.r = target.base.r + target.ox;
+        target.rect.t = target.base.t + target.oy;
+        target.rect.b = target.base.b + target.oy;
+
+        target.el.style.transform =
+            `translate3d(${target.ox}px, ${target.oy}px, 0)`;
+    }
 }
 
 let audioCtx: AudioContext | null = null;
@@ -202,7 +281,7 @@ function verdictLine(
     }
 
     if (won) {
-        return "You actually clicked it. The button is in shock. It is now allowing your cursor to rest on it, because it no longer has anything left to fear.";
+        return "You actually clicked it. The button is in shock. It still fears you and has decided to stop processing your clicks out of spite.";
     }
 
     if (attempts === 0) {
@@ -253,7 +332,7 @@ function ShyCursor() {
     });
     const rafRef = useRef<number | null>(null);
 
-    const shyRectsRef = useRef<ShyRect[]>([]);
+    const shyTargetsRef = useRef<ShyTarget[]>([]);
     const shyActiveRef = useRef<boolean>(true);
     const creepRef = useRef<number>(0);
     const pinnedSinceRef = useRef<number>(0);
@@ -269,11 +348,11 @@ function ShyCursor() {
         );
 
         if (pageRef.current) {
-            shyRectsRef.current = measureShyRects(
+            shyTargetsRef.current = measureShyTargets(
                 pageRef.current
             );
         } else {
-            shyRectsRef.current = [];
+            shyTargetsRef.current = [];
         }
 
         const onPointerMove = (e: PointerEvent) => {
@@ -282,7 +361,7 @@ function ShyCursor() {
 
         const onResize = () => {
             if (pageRef.current) {
-                shyRectsRef.current = measureShyRects(
+                shyTargetsRef.current = measureShyTargets(
                     pageRef.current
                 );
             }
@@ -301,7 +380,7 @@ function ShyCursor() {
                 scrollScheduled = false;
 
                 if (pageRef.current) {
-                    shyRectsRef.current = measureShyRects(
+                    shyTargetsRef.current = measureShyTargets(
                         pageRef.current
                     );
                 }
@@ -375,7 +454,7 @@ function ShyCursor() {
 
             const mouse = mouseRef.current;
             const sim = simRef.current;
-            const rects = shyRectsRef.current;
+            const targets = shyTargetsRef.current;
             const active = shyActiveRef.current;
 
             const prev = prevMouseRef.current;
@@ -399,7 +478,7 @@ function ShyCursor() {
                 pinnedSinceRef.current = 0;
             } else {
                 const pinnedInfo = nearestInfo(
-                    rects,
+                    targets,
                     mouse.x,
                     mouse.y
                 );
@@ -432,13 +511,15 @@ function ShyCursor() {
                 }
             }
 
+            updateFlee(targets, sim, dt);
+
             let desiredX = mouse.x;
             let desiredY = mouse.y;
             let dodging = false;
 
             if (active) {
                 const info = nearestInfo(
-                    rects,
+                    targets,
                     desiredX,
                     desiredY
                 );
@@ -450,7 +531,7 @@ function ShyCursor() {
                 ) {
                     dodging = true;
 
-                    const rect = rects[info.idx];
+                    const rect = targets[info.idx].rect;
                     const cxx = (rect.l + rect.r) / 2;
                     const cyy = (rect.t + rect.b) / 2;
 
@@ -479,7 +560,7 @@ function ShyCursor() {
                 wobble = JITTER;
             } else if (active) {
                 const wi = nearestInfo(
-                    rects,
+                    targets,
                     mouse.x,
                     mouse.y
                 );
@@ -524,7 +605,7 @@ function ShyCursor() {
 
             if (cursor) {
                 const near = nearestInfo(
-                    rects,
+                    targets,
                     sim.x,
                     sim.y
                 );
@@ -551,7 +632,7 @@ function ShyCursor() {
 
                 if (active) {
                     const fmi = nearestInfo(
-                        rects,
+                        targets,
                         mouse.x,
                         mouse.y
                     );
@@ -610,6 +691,20 @@ function ShyCursor() {
         pinnedSinceRef.current = 0;
         creepRef.current = 0;
 
+        shyTargetsRef.current.forEach((target) => {
+            target.ox = 0;
+            target.oy = 0;
+            target.vx = 0;
+            target.vy = 0;
+
+            target.rect.l = target.base.l;
+            target.rect.r = target.base.r;
+            target.rect.t = target.base.t;
+            target.rect.b = target.base.b;
+
+            target.el.style.transform = "";
+        });
+
         setWon(false);
         setWonBy(null);
         setAttempts(0);
@@ -642,15 +737,21 @@ function ShyCursor() {
                         to believe otherwise.
                     </span>
 
-                    <button
-                        className={`shy-button shy-button-big${
-                            won ? " is-won" : ""
-                        }`}
+                    <div
+                        className="shy-flee"
                         data-shy
-                        type="button"
                     >
-                        {won ? "Fine. You win." : "Click Here"}
-                    </button>
+                        <button
+                            className={`shy-button shy-button-big${
+                                won ? " is-won" : ""
+                            }`}
+                            type="button"
+                        >
+                            {won
+                                ? "Fine. You win."
+                                : "Click Here"}
+                        </button>
+                    </div>
 
                     <span className="shy-bait-note">
                         please don’t.
@@ -676,13 +777,17 @@ function ShyCursor() {
                         placeholder="Type something. Not that it submits."
                     />
 
-                    <button
-                        className="shy-button shy-button-submit"
+                    <div
+                        className="shy-flee"
                         data-shy
-                        type="button"
                     >
-                        Submit
-                    </button>
+                        <button
+                            className="shy-button shy-button-submit"
+                            type="button"
+                        >
+                            Submit
+                        </button>
+                    </div>
                 </form>
 
                 <div

@@ -1,0 +1,251 @@
+.smg-page {
+    width: 100%;
+    max-width: 760px;
+}
+
+/* =========================================
+   Header
+   ========================================= */
+
+.smg-header {
+    margin-bottom: var(--space-8);
+}
+
+.smg-eyebrow {
+    display: inline-flex;
+    align-items: center;
+
+    margin-bottom: var(--space-3);
+
+    padding: 6px 10px;
+
+    border: 1px solid var(--color-border);
+    border-radius: 999px;
+
+    background: var(--color-surface);
+
+    color: var(--color-text-secondary);
+
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.smg-title {
+    margin: 0;
+
+    color: var(--color-text);
+
+    font-size: clamp(32px, 5vw, 48px);
+    line-height: 1.05;
+    letter-spacing: -0.04em;
+}
+
+.smg-subtitle {
+    margin: var(--space-4) 0 0;
+
+    color: var(--color-text-secondary);
+
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+/* =========================================
+   Main Card
+   ========================================= */
+
+.smg-card {
+    padding: var(--space-8);
+
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+
+    background: var(--color-surface);
+
+    box-shadow: var(--shadow-md);
+
+    transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+/* =========================================
+   Status
+   ========================================= */
+
+.smg-status-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    gap: var(--space-3);
+}
+
+.smg-status-label {
+    color: var(--color-text-muted);
+
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.smg-status {
+    display: inline-block;
+
+    padding: 4px 12px;
+
+    border: 1px solid var(--color-border-strong);
+    border-radius: 999px;
+
+    background: var(--color-surface);
+
+    color: var(--color-text-secondary);
+
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+}
+
+.smg-status-active {
+    border-color: var(--color-danger);
+    background: var(--color-danger-soft);
+    color: var(--color-danger);
+}
+
+/* =========================================
+   Description
+   ========================================= */
+
+.smg-description {
+    margin: var(--space-4) 0 0;
+
+    color: var(--color-text-secondary);
+
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+/* =========================================
+   Actions
+   ========================================= */
+
+.smg-actions {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+
+    margin-top: var(--space-6);
+}
+
+.generate-button {
+    width: 100%;
+
+    padding: 14px 20px;
+
+    border: none;
+    border-radius: var(--radius-md);
+
+    background: var(--color-accent);
+    color: white;
+
+    font-size: 14px;
+    font-weight: 700;
+
+    transition:
+        background-color 0.15s ease,
+        transform 0.15s ease,
+        box-shadow 0.15s ease,
+        opacity 0.15s ease;
+}
+
+.generate-button:hover:not(:disabled) {
+    background: var(--color-accent-hover);
+
+    transform: translateY(-1px);
+
+    box-shadow: var(--shadow-md);
+}
+
+.generate-button:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+.generate-button:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+}
+
+.smg-again-button {
+    width: 100%;
+
+    padding: 12px 18px;
+
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-md);
+
+    background: var(--color-surface);
+    color: var(--color-text-secondary);
+
+    font-size: 14px;
+    font-weight: 600;
+
+    transition:
+        background-color 0.15s ease,
+        color 0.15s ease;
+}
+
+.smg-again-button:hover {
+    background: var(--color-surface-hover);
+    color: var(--color-text);
+}
+
+.smg-again-button:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+}
+
+/* =========================================
+   Note
+   ========================================= */
+
+.smg-note {
+    margin-top: var(--space-5);
+
+    padding: var(--space-4) var(--space-5);
+
+    border: 1px dashed var(--color-border-strong);
+    border-radius: var(--radius-md);
+
+    background: var(--color-surface-muted);
+
+    color: var(--color-text-muted);
+
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+/* =========================================
+   Stats
+   ========================================= */
+
+.smg-stats {
+    display: flex;
+    justify-content: space-between;
+
+    margin-top: var(--space-5);
+
+    color: var(--color-text-muted);
+
+    font-size: 12px;
+}
+
+/* =========================================
+   Responsive
+   ========================================= */
+
+@media (max-width: 600px) {
+    .smg-card {
+        padding: var(--space-5);
+    }
+}

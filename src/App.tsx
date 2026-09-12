@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useState, useSyncExternalStore } from "react";
 
 import AppHeader from "./components/AppHeader";
 import Dashboard from "./pages/Dashboard";
+import SmudgeOverlay from "./components/SmudgeOverlay";
 
 import { tools } from "./data/tools";
 import { readStats, recordOpen } from "./utils/stats";
+import { getActive, subscribe } from "./utils/smudgeStore";
 
 import type {
     ToolStats,
@@ -18,6 +20,11 @@ function App() {
 
     const [stats, setStats] =
         useState<ToolStats>(readStats);
+
+    const smudgesActive = useSyncExternalStore(
+        subscribe,
+        getActive
+    );
 
     const activeTool = tools.find(
         (tool) => tool.id === activeToolId
@@ -50,6 +57,8 @@ function App() {
                     />
                 )}
             </main>
+
+            {smudgesActive && <SmudgeOverlay />}
         </div>
     );
 }

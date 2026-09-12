@@ -8,6 +8,8 @@ import ProcrastinationOptimizer from "../pages/ProcrastinationOptimizer";
 import SlingshotSlider from "../pages/SlingshotSlider";
 import NpcGenerator from "../pages/NpcGenerator";
 import ShyCursor from "../pages/ShyCursor";
+import PasswordDegrader from "../pages/PasswordDegrader";
+import ScreenSmudger from "../pages/ScreenSmudger";
 import {
     ExcuseIcon,
     KeyboardIcon,
@@ -15,6 +17,8 @@ import {
     SlingshotIcon,
     NpcIcon,
     ShyCursorIcon,
+    LockIcon,
+    ScreenIcon,
 } from "../components/ToolIcons";
 
 export interface UselessTool {
@@ -73,5 +77,21 @@ export const tools: UselessTool[] = [
             "Transforms your classmates into low-resolution RPG characters with questionable stats and zero side quests.",
         icon: NpcIcon,
         component: NpcGenerator,
+    },
+    {
+        id: "password-degrader",
+        name: "Password Strength Degrader",
+        tagline:
+            "A security auditor with fundamentally antisocial priorities. Turns strong passwords into lifestyle choices.",
+        icon: LockIcon,
+        component: PasswordDegrader,
+    },
+    {
+        id: "screen-smudger",
+        name: "The Virtual Screen Smudger",
+        tagline:
+            "Applies decades of grime to your screen in seconds — until you press Remove, at which point it behaves like a gentleman.",
+        icon: ScreenIcon,
+        component: ScreenSmudger,
     },
 ];

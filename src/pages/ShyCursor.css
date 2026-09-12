@@ -104,6 +104,17 @@
         box-shadow 0.15s ease;
 }
 
+.shy-flee {
+    display: inline-block;
+
+    will-change: transform;
+}
+
+.shy-bait .shy-flee,
+.shy-bait .shy-flee .shy-button {
+    width: 100%;
+}
+
 .shy-button:focus-visible {
     outline: 2px solid var(--color-accent);
     outline-offset: 2px;
