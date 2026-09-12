@@ -42,36 +42,45 @@ Our fun website lets users unwind as they experience the joys of what it feels l
 
 ### Implementation
 For Software:
-# Installation
-[commands]
 
-# Run
-[commands]
+### Installation
+
+Make sure you have Node.js installed — v20.19+ or v22.12+ (required by Vite 8).
+
+Clone the repo, open a terminal in the project folder, then:
+
+    npm install
+
+This pulls in three.js and @types/three, which power the Rogue Sensei's 3D overlay.
+
+### Run
+
+Start the development server:
+
+    npm run dev
+
+Then open http://localhost:5173 in your browser (Vite prints the exact URL — if the port is busy it will pick another one).
+
+Other useful commands:
+
+    npm run build    # type-checks (tsc -b) then builds into dist/
+    npm run preview  # serve the production build locally
+    npm run lint     # ESLint over the codebase
+
+No backend or API keys are needed — everything runs client-side in the browser with self-hosted audio and artwork.
 
 ### Project Documentation
 For Software:
 
-# Screenshots (Add at least 3)
-![Screenshot1](Add screenshot 1 here with proper name)
-*Add caption explaining what this shows*
+# Screenshots
+![Main Page](outputs/demo1.png)
+*Main Dashboard*
 
-![Screenshot2](Add screenshot 2 here with proper name)
-*Add caption explaining what this shows*
+![Screenshot2](outputs/demo2.png)
+*three.js Sensei*
 
-![Screenshot3](Add screenshot 3 here with proper name)
-*Add caption explaining what this shows*
-
-# Diagrams
-![Workflow](Add your workflow/architecture diagram here)
-*Add caption explaining your workflow*
-
-### Project Demo
-# Video
-[Add your demo video link here]
-*Explain what the video demonstrates*
-
-# Additional Demos
-[Add any extra demo materials/links]
+![Screenshot3](outputs/demo3.png)
+*Slingshot Volume Controller*
 
 ## Team Contributions
 - Alan Joy: ThreeJS Sensei, Background music, Slingshot volume slider, shy cursor etc. 
