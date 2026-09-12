@@ -41,7 +41,7 @@ Our fun website lets users unwind as they experience the joys of what it feels l
 - localStorage — theme/music prefs + persisted stats
 
 ### Implementation
-For Software:
+[UselessOS on Netlify](https://uselessos.netlify.app/)
 
 ### Installation
 
