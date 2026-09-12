@@ -1,0 +1,208 @@
+.sensei-mount {
+    position: fixed;
+    inset: 0;
+
+    z-index: 30;
+
+    pointer-events: none;
+}
+
+.sensei-canvas-host {
+    position: absolute;
+    inset: 0;
+}
+
+.sensei-canvas-host canvas {
+    display: block;
+}
+
+.sensei-bubble {
+    position: fixed;
+    left: 0;
+    top: 0;
+
+    z-index: 31;
+
+    padding: 8px 14px;
+
+    border: 1px solid var(--color-border-strong);
+    border-radius: 999px;
+
+    background: var(--color-surface);
+
+    box-shadow: var(--shadow-md);
+
+    color: var(--color-text);
+
+    font-size: 13px;
+    font-weight: 700;
+
+    pointer-events: none;
+
+    opacity: 0;
+
+    transform: translate(-9999px, -9999px);
+
+    transition: opacity 0.12s ease;
+}
+
+.sensei-bubble::after {
+    content: "";
+
+    position: absolute;
+    left: 50%;
+    bottom: -5px;
+
+    width: 10px;
+    height: 10px;
+
+    border-right: 1px solid var(--color-border-strong);
+    border-bottom: 1px solid var(--color-border-strong);
+
+    background: var(--color-surface);
+
+    transform: translateX(-50%) rotate(45deg);
+}
+
+.sensei-bubble-show {
+    opacity: 1;
+}
+
+.sensei-zzz {
+    position: fixed;
+    left: 0;
+    top: 0;
+
+    z-index: 31;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+
+    pointer-events: none;
+
+    opacity: 0;
+
+    transform: translate(-9999px, -9999px);
+
+    transition: opacity 0.15s ease;
+}
+
+.sensei-zzz span {
+    color: var(--color-text-muted);
+
+    font-size: 20px;
+    font-weight: 800;
+
+    line-height: 1;
+}
+
+.sensei-zzz-show {
+    opacity: 1;
+}
+
+.sensei-zzz-show span:nth-child(1) {
+    animation: sensei-z-float 1.6s ease-in-out infinite;
+}
+
+.sensei-zzz-show span:nth-child(2) {
+    animation: sensei-z-float 1.6s ease-in-out 0.25s infinite;
+}
+
+.sensei-zzz-show span:nth-child(3) {
+    animation: sensei-z-float 1.6s ease-in-out 0.5s infinite;
+}
+
+@keyframes sensei-z-float {
+    0% {
+        transform: translateY(18px) scale(0.8);
+        opacity: 0;
+    }
+
+    30% {
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(-6px) scale(1.15);
+        opacity: 0;
+    }
+}
+
+.sensei-nap-alarm {
+    position: fixed;
+    top: 68px;
+    right: 16px;
+
+    z-index: 32;
+
+    display: flex;
+    align-items: center;
+
+    gap: 8px;
+
+    padding: 10px 14px;
+
+    border: 1px solid var(--color-accent);
+    border-radius: var(--radius-md);
+
+    background: var(--color-surface);
+
+    box-shadow: var(--shadow-lg);
+
+    color: var(--color-text-secondary);
+
+    font-size: 13px;
+    font-weight: 600;
+
+    pointer-events: none;
+
+    opacity: 0;
+
+    transform: translateY(6px);
+
+    transition:
+        opacity 0.2s ease,
+        transform 0.2s ease;
+}
+
+.sensei-alarm-z {
+    color: var(--color-accent);
+
+    font-weight: 800;
+
+    letter-spacing: 0.02em;
+}
+
+.sensei-nap-alarm.sensei-alarm-on {
+    opacity: 1;
+
+    transform: translateY(0);
+}
+
+.tool-card.sensei-swapped {
+    animation: sensei-card-whack 0.7s ease both;
+}
+
+@keyframes sensei-card-whack {
+    0% {
+        transform: none;
+    }
+
+    18% {
+        transform: rotate(-4deg) scale(0.97);
+    }
+
+    38% {
+        transform: rotate(3deg) scale(1.02);
+    }
+
+    58% {
+        transform: rotate(-1.5deg) scale(0.99);
+    }
+
+    100% {
+        transform: none;
+    }
+}

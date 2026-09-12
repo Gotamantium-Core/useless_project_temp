@@ -6,7 +6,7 @@ import "./Dashboard.css";
 
 interface DashboardProps {
     stats: ToolStats;
-    onOpenTool: (toolId: string) => void;
+    onOpenTool: (toolId: string, rect: DOMRect) => void;
 }
 
 function Dashboard({ stats, onOpenTool }: DashboardProps) {
@@ -52,8 +52,11 @@ function Dashboard({ stats, onOpenTool }: DashboardProps) {
                             key={tool.id}
                             type="button"
                             className="tool-card"
-                            onClick={() =>
-                                onOpenTool(tool.id)
+                            onClick={(e) =>
+                                onOpenTool(
+                                    tool.id,
+                                    e.currentTarget.getBoundingClientRect()
+                                )
                             }
                         >
                             <span className="tool-card-icon">

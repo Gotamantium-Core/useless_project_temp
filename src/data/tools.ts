@@ -10,6 +10,7 @@ import NpcGenerator from "../pages/NpcGenerator";
 import ShyCursor from "../pages/ShyCursor";
 import PasswordDegrader from "../pages/PasswordDegrader";
 import ScreenSmudger from "../pages/ScreenSmudger";
+import Sensei from "../pages/Sensei";
 import {
     ExcuseIcon,
     KeyboardIcon,
@@ -19,6 +20,7 @@ import {
     ShyCursorIcon,
     LockIcon,
     ScreenIcon,
+    SenseiIcon,
 } from "../components/ToolIcons";
 
 export interface UselessTool {
@@ -93,5 +95,13 @@ export const tools: UselessTool[] = [
             "Applies decades of grime to your screen in seconds — until you press Remove, at which point it behaves like a gentleman.",
         icon: ScreenIcon,
         component: ScreenSmudger,
+    },
+    {
+        id: "rogue-sensei",
+        name: "The Rogue Sensei",
+        tagline:
+            "A low-poly anime gremlin that follows you around and makes sure the tool you clicked was never the one you wanted.",
+        icon: SenseiIcon,
+        component: Sensei,
     },
 ];

@@ -156,6 +156,28 @@ function ScreenIcon() {
     );
 }
 
+function SenseiIcon() {
+    return (
+        <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden="true"
+        >
+            <circle cx="12" cy="10" r="5.5" />
+            <path d="M6.5 7h11" />
+            <path d="M9 10l1 1 2-2 2 2 1-1" />
+            <path d="M12 15v6" />
+            <path d="M8 21h8" />
+            <path d="M6 3l1.2 1.2" strokeDasharray="0.6 1.4" />
+            <path d="M18 3l-1.2 1.2" strokeDasharray="0.6 1.4" />
+        </svg>
+    );
+}
+
 export {
     ExcuseIcon,
     KeyboardIcon,
@@ -165,4 +187,5 @@ export {
     ShyCursorIcon,
     LockIcon,
     ScreenIcon,
+    SenseiIcon,
 };
