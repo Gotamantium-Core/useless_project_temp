@@ -5,10 +5,12 @@ import type {
 import ExcuseGenerator from "../pages/ExcuseGenerator";
 import TyperChecker from "../pages/TyperChecker";
 import ProcrastinationOptimizer from "../pages/ProcrastinationOptimizer";
+import SlingshotSlider from "../pages/SlingshotSlider";
 import {
     ExcuseIcon,
     KeyboardIcon,
     ClockIcon,
+    SlingshotIcon,
 } from "../components/ToolIcons";
 
 export interface UselessTool {
@@ -43,5 +45,13 @@ export const tools: UselessTool[] = [
             "Converts doomed goals into beautifully choreographed evenings of doing anything else.",
         icon: ClockIcon,
         component: ProcrastinationOptimizer,
+    },
+    {
+        id: "slingshot-volume",
+        name: "The Slingshot Volume Slider",
+        tagline:
+            "A volume control that requires upper-body strength, a prayer, and a song that starts from a completely random point.",
+        icon: SlingshotIcon,
+        component: SlingshotSlider,
     },
 ];

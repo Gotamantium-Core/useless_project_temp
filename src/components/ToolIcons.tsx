@@ -60,8 +60,30 @@ function ClockIcon() {
     );
 }
 
+function SlingshotIcon() {
+    return (
+        <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden="true"
+        >
+            <path d="M6 3l5 6-5 6" />
+            <path d="M18 3l-5 6 5 6" />
+            <line x1="11" y1="9" x2="13" y2="9" />
+            <circle cx="12" cy="9" r="2" />
+            <line x1="12" y1="11" x2="12" y2="20" />
+            <line x1="7" y1="20" x2="17" y2="20" />
+        </svg>
+    );
+}
+
 export {
     ExcuseIcon,
     KeyboardIcon,
     ClockIcon,
+    SlingshotIcon,
 };
