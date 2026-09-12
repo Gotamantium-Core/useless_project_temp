@@ -6,11 +6,13 @@ import ExcuseGenerator from "../pages/ExcuseGenerator";
 import TyperChecker from "../pages/TyperChecker";
 import ProcrastinationOptimizer from "../pages/ProcrastinationOptimizer";
 import SlingshotSlider from "../pages/SlingshotSlider";
+import NpcGenerator from "../pages/NpcGenerator";
 import {
     ExcuseIcon,
     KeyboardIcon,
     ClockIcon,
     SlingshotIcon,
+    NpcIcon,
 } from "../components/ToolIcons";
 
 export interface UselessTool {
@@ -53,5 +55,13 @@ export const tools: UselessTool[] = [
             "A volume control that requires upper-body strength, a prayer, and a song that starts from a completely random point.",
         icon: SlingshotIcon,
         component: SlingshotSlider,
+    },
+    {
+        id: "campus-npc",
+        name: "Campus NPC Generator",
+        tagline:
+            "Transforms your classmates into low-resolution RPG characters with questionable stats and zero side quests.",
+        icon: NpcIcon,
+        component: NpcGenerator,
     },
 ];
