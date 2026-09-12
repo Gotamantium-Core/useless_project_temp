@@ -7,12 +7,14 @@ import TyperChecker from "../pages/TyperChecker";
 import ProcrastinationOptimizer from "../pages/ProcrastinationOptimizer";
 import SlingshotSlider from "../pages/SlingshotSlider";
 import NpcGenerator from "../pages/NpcGenerator";
+import ShyCursor from "../pages/ShyCursor";
 import {
     ExcuseIcon,
     KeyboardIcon,
     ClockIcon,
     SlingshotIcon,
     NpcIcon,
+    ShyCursorIcon,
 } from "../components/ToolIcons";
 
 export interface UselessTool {
@@ -55,6 +57,14 @@ export const tools: UselessTool[] = [
             "A volume control that requires upper-body strength, a prayer, and a song that starts from a completely random point.",
         icon: SlingshotIcon,
         component: SlingshotSlider,
+    },
+    {
+        id: "shy-cursor",
+        name: "The Shy Cursor",
+        tagline:
+            "A pointer with harsh opinions about your buttons, enforced from a safe distance of at least fifty pixels.",
+        icon: ShyCursorIcon,
+        component: ShyCursor,
     },
     {
         id: "campus-npc",

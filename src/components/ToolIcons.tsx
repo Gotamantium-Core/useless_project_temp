@@ -99,10 +99,29 @@ function SlingshotIcon() {
     );
 }
 
+function ShyCursorIcon() {
+    return (
+        <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden="true"
+        >
+            <path d="M4 4 L4 18.5 L8 16 L10.4 21 L13 19.8 L10.6 15.2 L16.4 14.4 Z" />
+            <circle cx="8.5" cy="9" r="0.7" fill="currentColor" stroke="none" />
+            <circle cx="10.8" cy="8.2" r="0.7" fill="currentColor" stroke="none" />
+        </svg>
+    );
+}
+
 export {
     ExcuseIcon,
     KeyboardIcon,
     ClockIcon,
     SlingshotIcon,
     NpcIcon,
+    ShyCursorIcon,
 };
