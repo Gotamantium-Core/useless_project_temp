@@ -1,4 +1,5 @@
 // src/data/typingData.ts
+// sample comment
 var typingSample = "Sphinx of black quartz, judge my words and tell me what I fear.";
 var typingConclusions = [
   {
