@@ -1,0 +1,406 @@
+.bg-art {
+    position: fixed;
+    inset: 0;
+
+    z-index: -1;
+
+    overflow: hidden;
+
+    pointer-events: none;
+}
+
+.bg-art-pattern,
+.bg-art-glow {
+    position: absolute;
+}
+
+.bg-art-pattern {
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    color: var(--color-text);
+    opacity: 0.16;
+}
+
+.bg-art-glow-left {
+    top: -180px;
+    left: -180px;
+
+    width: 520px;
+    height: 520px;
+
+    border-radius: 50%;
+
+    background: radial-gradient(
+        circle,
+        var(--color-accent) 0%,
+        transparent 68%
+    );
+
+    opacity: 0.12;
+}
+
+.bg-art-glow-right {
+    right: -200px;
+    bottom: -200px;
+
+    width: 620px;
+    height: 620px;
+
+    border-radius: 50%;
+
+    background: radial-gradient(
+        circle,
+        var(--color-accent-soft) 0%,
+        transparent 70%
+    );
+
+    opacity: 0.5;
+}
+
+/* =========================================
+   Waves
+   ========================================= */
+
+.bg-art-wave {
+    position: absolute;
+    left: 0;
+
+    width: 100%;
+    height: 220px;
+
+    pointer-events: none;
+}
+
+.bg-art-wave-1 {
+    top: 10%;
+
+    height: 200px;
+
+    color: var(--color-accent);
+    opacity: 0.1;
+}
+
+.bg-art-wave-2 {
+    top: 32%;
+
+    height: 260px;
+
+    color: var(--color-accent);
+    opacity: 0.07;
+}
+
+.bg-art-wave-3 {
+    top: 54%;
+
+    height: 200px;
+
+    color: var(--color-accent-soft);
+    opacity: 0.14;
+}
+
+.bg-art-wave-4 {
+    bottom: -60px;
+
+    height: 360px;
+
+    color: var(--color-accent);
+    opacity: 0.06;
+}
+
+/* =========================================
+   Doodles
+   ========================================= */
+
+.bg-doodle {
+    position: absolute;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 44px;
+    height: 44px;
+
+    color: var(--color-text);
+}
+
+.bg-doodle svg {
+    width: 100%;
+    height: 100%;
+}
+
+.bg-doodle-xl {
+    width: 140px;
+    height: 140px;
+}
+
+.bg-doodle-lg {
+    width: 110px;
+    height: 110px;
+}
+
+.bg-doodle-md {
+    width: 72px;
+    height: 72px;
+}
+
+.bg-doodle-sm {
+    width: 30px;
+    height: 30px;
+}
+
+.bg-doodle-xs {
+    width: 22px;
+    height: 22px;
+}
+
+.bg-doodle-strong {
+    color: var(--color-accent);
+
+    opacity: 0.35;
+}
+
+.bg-doodle-soft {
+    opacity: 0.12;
+}
+
+.bg-doodle-mind {
+    opacity: 0.2;
+}
+
+/* =========================================
+   Placement
+   ========================================= */
+
+.bg-doodle-tl {
+    top: 7%;
+    left: 4%;
+}
+
+.bg-doodle-tr {
+    top: 12%;
+    right: 5%;
+}
+
+.bg-doodle-ml {
+    top: 42%;
+    left: 3%;
+}
+
+.bg-doodle-mr {
+    top: 38%;
+    right: 4%;
+}
+
+.bg-doodle-bl {
+    bottom: 9%;
+    left: 6%;
+}
+
+.bg-doodle-br {
+    right: 6%;
+    bottom: 10%;
+}
+
+.bg-doodle-bolt {
+    top: 4%;
+    left: 44%;
+
+    transform: rotate(-14deg);
+}
+
+.bg-doodle-spiral {
+    top: 16%;
+    right: 16%;
+}
+
+.bg-doodle-arrow {
+    top: 30%;
+    left: 26%;
+
+    transform: rotate(-16deg);
+}
+
+.bg-doodle-arrow2 {
+    right: 20%;
+    bottom: 18%;
+
+    transform: rotate(24deg);
+}
+
+.bg-doodle-scribble {
+    top: 22%;
+    left: 62%;
+}
+
+.bg-doodle-scribble2 {
+    right: 24%;
+    bottom: 24%;
+}
+
+.bg-doodle-star {
+    top: 6%;
+    left: 12%;
+}
+
+.bg-doodle-star2 {
+    top: 16%;
+    left: 82%;
+}
+
+.bg-doodle-star3 {
+    bottom: 14%;
+    left: 36%;
+}
+
+.bg-doodle-q {
+    top: 34%;
+    left: 10%;
+}
+
+.bg-doodle-q2 {
+    right: 10%;
+    bottom: 30%;
+}
+
+.bg-doodle-ring {
+    top: 8%;
+    right: 30%;
+}
+
+.bg-doodle-ring2 {
+    bottom: 6%;
+    left: 20%;
+}
+
+.bg-doodle-dots {
+    top: 24%;
+    left: 12%;
+}
+
+.bg-doodle-dots2 {
+    right: 8%;
+    bottom: 8%;
+}
+
+.bg-doodle-frame {
+    top: 56%;
+    left: 50%;
+}
+
+@media (max-width: 720px) {
+    .bg-doodle-ml,
+    .bg-doodle-mr,
+    .bg-doodle-scribble2,
+    .bg-doodle-frame {
+        display: none;
+    }
+
+    .bg-doodle-tl {
+        top: 20%;
+    }
+
+    .bg-doodle-tr {
+        top: 26%;
+    }
+
+    .bg-art-wave-2,
+    .bg-art-wave-3 {
+        display: none;
+    }
+}
+
+/* =========================================
+   Motion (gentle, GPU-only)
+   ========================================= */
+
+@media (prefers-reduced-motion: no-preference) {
+    .bg-doodle-drift {
+        animation: bg-drift 16s ease-in-out infinite alternate;
+    }
+
+    .bg-doodle-drift-slow {
+        animation: bg-drift 26s ease-in-out infinite alternate;
+    }
+
+    .bg-doodle-spin {
+        animation: bg-spin-slow 40s linear infinite;
+    }
+
+    .bg-doodle-bob {
+        animation: bg-bob 9s ease-in-out infinite alternate;
+    }
+
+    .bg-art-glow-left {
+        animation: bg-glow-pulse 18s ease-in-out infinite alternate;
+    }
+
+    .bg-art-wave-1 {
+        animation: bg-wave-drift 30s ease-in-out infinite alternate;
+    }
+
+    .bg-art-wave-2 {
+        animation: bg-wave-drift 44s ease-in-out infinite alternate-reverse;
+    }
+
+    .bg-art-wave-3 {
+        animation: bg-wave-drift 36s ease-in-out infinite alternate;
+    }
+
+    .bg-art-wave-4 {
+        animation: bg-wave-drift 52s ease-in-out infinite alternate-reverse;
+    }
+}
+
+@keyframes bg-drift {
+    from {
+        transform: translate(-10px, 4px) rotate(-3deg);
+    }
+
+    to {
+        transform: translate(14px, -8px) rotate(4deg);
+    }
+}
+
+@keyframes bg-spin-slow {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes bg-bob {
+    from {
+        transform: translateY(0);
+    }
+
+    to {
+        transform: translateY(-12px);
+    }
+}
+
+@keyframes bg-glow-pulse {
+    from {
+        opacity: 0.08;
+    }
+
+    to {
+        opacity: 0.16;
+    }
+}
+
+@keyframes bg-wave-drift {
+    from {
+        transform: translateX(-3%);
+    }
+
+    to {
+        transform: translateX(3%);
+    }
+}

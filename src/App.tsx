@@ -7,6 +7,7 @@ import {
 } from "react";
 
 import AppHeader from "./components/AppHeader";
+import BgArt from "./components/BgArt";
 import Dashboard from "./pages/Dashboard";
 import SmudgeOverlay from "./components/SmudgeOverlay";
 import MusicPill from "./components/MusicPill";
@@ -130,6 +131,8 @@ function App() {
 
     return (
         <div className="app">
+            <BgArt />
+
             <AppHeader
                 onBack={activeTool ? handleBack : undefined}
             />
